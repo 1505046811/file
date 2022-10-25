@@ -4,35 +4,30 @@
  */
 
 // * 思路：
-var isValid = function(s) {
+var isValid = function(s) { 
   let obj={
     "(":')',
     "[":']',
     "{":'}'
   }
-  let Larr=[],Rarr=[];
+  let Rarr=[];
   let res=[]
   for(const item of s){
     if(obj[item]){
-      Larr.push(item)
+      Rarr.push(obj[item])
     }else{
-      Rarr.push(item)
+      let popVal=Rarr.pop()
+      if(popVal!=item){
+        return false;
+      }
     }
   }
-  console.log(Larr,Rarr)
-  for(let i=0;i<Larr.length;i++){
-    if(obj[Larr[i]]==Rarr[i]){
-      continue;
-    }else{
-      return false;
-    }
-  }
-  return true;
+  return Rarr.length==0?true:false;
 };
 
 
 // 测试用例
-let test = '(([]))'
+let test = '([)]'
 
 console.time('执行用时');
 console.log(isValid(test));
